@@ -1,0 +1,74 @@
+
+ <div class="mt-20 landing-page-wrapper" fxLayout="column">
+    <div class="mt-30 ml-20" fxLayout="column" >
+         <div class="title">Add Bookmark</div>
+       
+     </div>
+   
+     <div>
+    
+     <form [formGroup]="addBookmarkFormgroup">
+
+        <div class="align ">
+            <mat-form-field class="add-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                    <input  formControlName="title" matInput required>
+            </mat-form-field>
+            <mat-error *ngIf="hasError(FormErrors.title)" class="mt-0">
+                <span class="font-size-12"
+                    *ngIf="FormErrors.title.errors.required">Please add title</span>
+            <span class="font-size-12" *ngIf="addBookmarkFormgroup.controls['title'].hasError('maxlength')"> Maximum charecter limit is {{"30"}} </span>
+               
+            </mat-error>
+        </div>
+
+        <div class="align ">
+            <mat-form-field  class="add-width" appearance="outline">
+                <mat-label>URL</mat-label>
+                    <input formControlName="url" matInput required>
+            </mat-form-field>
+            <mat-error *ngIf="hasError(FormErrors.url)" class="mt-0">
+                <span class="font-size-12"
+                    *ngIf="FormErrors.url.errors.required">Please add title</span>
+            </mat-error>
+            <mat-error *ngIf="addBookmarkFormgroup.controls['url'].invalid && addBookmarkFormgroup.controls['url'].value !== ''">Please Insert a valid url</mat-error>
+            
+        </div>
+
+       <div class="align">
+           <mat-form-field  appearance="outline" class="w-100-p mt-12">
+            <mat-label>Category</mat-label>
+            <mat-select (selectionChange)="onChangeCategorySelect()" *ngIf="!defaultCategory" formControlName="category" >
+                <mat-option *ngFor="let type of showdata" [value]="type.key" >{{type.category}}
+                </mat-option>
+              </mat-select>
+
+              <input formControlName="category" *ngIf="defaultCategory" matInput required>
+           </mat-form-field>   
+
+           <button class="add-bookmark-btn" (click)="addnewCategory()">
+            <mat-icon>
+                add
+            </mat-icon>
+          </button>
+   
+        </div>
+    </form>
+    </div>
+
+    <div class="align-btn">
+        <button class="add-bookmark-btn" (click)="gotoPrevious()">
+           Cancel
+          </button>
+
+          <button class="fix" (click)="createNewAdd()">
+            Save
+          </button>
+
+    </div>
+
+        
+
+
+
+</div>

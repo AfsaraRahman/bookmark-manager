@@ -1,0 +1,31 @@
+<div class="mt-20 landing-page-wrapper" fxLayout="column">
+    <div class="w-100-p header" fxLayout="column" >
+         <div class="title">Bookmark Manager</div>
+   
+         
+           <button class="add-bookmark-btn" (click)="gotoAddBookmark()">
+               Add Bookmark
+           </button>
+       
+     </div>
+
+    
+   
+       <div class="Bookmark-list" fxLayout="column">
+
+        <div class="formatting" *ngFor="let type of bookMarkTypes" >{{type.key}}   
+           <mat-form-field appearance="outline" class="w-100-p mt-12">
+            <mat-label>{{type.key}}</mat-label>
+            <mat-select [value]="selectedBookmark">
+                <mat-option *ngFor="let item of showData" >
+                    {{item.title}}
+                </mat-option>
+              </mat-select>
+        
+           </mat-form-field>
+   
+       </div>
+
+       
+   
+   </div>
