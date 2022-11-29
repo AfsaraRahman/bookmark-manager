@@ -11,9 +11,9 @@ export class AddBookmarkComponent implements OnInit {
   addBookmarkFormgroup: FormGroup;
   selectedCategory:string|"";
   defaultCategory:boolean|false;
-  showdata:any;
-  bookMarkTypes = [
-  ];
+  showdata;
+  bookMarkTypes=[];
+  received;
 
   constructor(
    private _fb: FormBuilder,
@@ -22,7 +22,8 @@ export class AddBookmarkComponent implements OnInit {
 
   ngOnInit() {
 
-    this.setData();
+   //this.setData();
+    //localStorage.clear();
     this.loadData();
     this.initFormgroup();
   }
@@ -30,19 +31,19 @@ export class AddBookmarkComponent implements OnInit {
 
   setData(){
     var data=[ {
-      title: "Food Tutorial3",
+      title: "Javascript tutorial",
       url: "www.Food3.com",
       category: "Category B"
 
     },
     {
-      title: "Food Tutorial3",
+      title: "Food Tutorial juice",
       url: "www.Food3.com",
       category: "Category C"
       
     },
     {
-      title: "Food Tutorial3",
+      title: "Food Tutorial burger",
       url: "www.Food3.com",
       category: "Category A"
     },
@@ -57,21 +58,24 @@ export class AddBookmarkComponent implements OnInit {
 
  loadData(){
   
-   var data=localStorage.getItem('bookmarks');
-  this.showdata=JSON.parse(data);
-   console.log(this.showdata);
-   for(let i of this.showdata){
-    if(this.bookMarkTypes==null){
-      this.bookMarkTypes.push(i.category);
-    }
-    else if(!this.bookMarkTypes.includes==i.category){
-      this.bookMarkTypes.push(i.category);
-    }
-    
+  var data=localStorage.getItem('bookmarks');
+  if(data==null){
+    this.showdata=[];
   }
+  else{
+    this.received=JSON.parse(data);
+
+    var key=Object.keys(this.received);
+    key.forEach((key, index) => {
+      console.log(key, ":", this.received[key].category);
+      if(!this.bookMarkTypes.includes( this.received[key].category)){
+             this.bookMarkTypes.push(this.received[key].category);
+        }
+    });
   console.log(this.bookMarkTypes);
 
  }
+}
 
   initFormgroup(){
     this.addBookmarkFormgroup = this._fb.group({
@@ -107,13 +111,16 @@ export class AddBookmarkComponent implements OnInit {
     this.router.navigateByUrl(``);
   }
 
-  createNewAdd(){
-    console.log("bookmark added");
+  newBookmarkAdd(){
     const data = this.addBookmarkFormgroup.getRawValue();
-    console.log(data);
-    localStorage.setItem('bookmarks',JSON.stringify(data));
+    this.received.push(data);
+    console.log("***", this.received);
+    localStorage.setItem('bookmarks',JSON.stringify(this.received));
+   // console.log(data);
+    
+    alert("bookmark added");
 
-    this.router.navigateByUrl(``);
+    //this.router.navigateByUrl(``);
   }
 
   onChangeCategorySelect(event){

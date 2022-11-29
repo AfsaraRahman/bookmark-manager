@@ -13,12 +13,12 @@
    
        <div class="Bookmark-list" fxLayout="column">
 
-        <div class="formatting" *ngFor="let type of bookMarkTypes" >{{type.key}}   
+        <div class="formatting" *ngFor="let type of bookMarkTypes" >{{type}}   
            <mat-form-field appearance="outline" class="w-100-p mt-12">
-            <mat-label>{{type.key}}</mat-label>
+            <mat-label class="mt-5">{{type}}</mat-label>
             <mat-select [value]="selectedBookmark">
-                <mat-option *ngFor="let item of showData" >
-                    {{item.title}}
+                <mat-option *ngFor="let item of specifictype(type)"  [value]="item.title" >
+                        {{item.title}}
                 </mat-option>
               </mat-select>
         

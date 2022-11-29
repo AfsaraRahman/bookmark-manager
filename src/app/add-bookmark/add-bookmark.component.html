@@ -39,7 +39,7 @@
            <mat-form-field  appearance="outline" class="w-100-p mt-12">
             <mat-label>Category</mat-label>
             <mat-select (selectionChange)="onChangeCategorySelect()" *ngIf="!defaultCategory" formControlName="category" >
-                <mat-option *ngFor="let type of showdata" [value]="type.key" >{{type.category}}
+                <mat-option *ngFor="let type of bookMarkTypes" [value]="type" >{{type}}
                 </mat-option>
               </mat-select>
 
@@ -61,7 +61,7 @@
            Cancel
           </button>
 
-          <button class="fix" (click)="createNewAdd()">
+          <button class="fix" (click)="newBookmarkAdd()">
             Save
           </button>
 
